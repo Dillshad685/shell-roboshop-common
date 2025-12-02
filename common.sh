@@ -14,7 +14,7 @@ LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"  #/var/log/shell-roboshop/mongodb.log
 mkdir -p $LOGS_FOLDER
 echo "$LOG_FILE"
 START_TIME=$(date +%s)
-echo "script execution start time: $START_TIME" | tee -a $LOG_FILE    #appends the output to the logfile
+echo "script execution start time: $(date +%s)" | tee -a $LOG_FILE    #appends the output to the logfile
 
 USERID=$(id -u)    
 
