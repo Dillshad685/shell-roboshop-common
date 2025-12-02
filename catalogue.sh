@@ -3,9 +3,9 @@
 source ./common.sh
 app_name=catalogue
 Checks_sudo_user
-
-nodejs_install
 User_setup
+nodejs_install
+
 system_setup
 
 cp $SCRIPT_DIR/mongodb.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
