@@ -12,6 +12,7 @@ SCRIPT_NAME=$(echo $0 | cut -d "." -f1) #$0 refers to the file which is running 
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"  #/var/log/shell-roboshop/mongodb.log
 SCRIPT_DIR=$PWD
 mkdir -p $LOGS_FOLDER
+MONGODB_HOST=mongodb.dillshad.space
 echo "$LOG_FILE"
 START_TIME=$(date +%s)
 echo "script execution start time: $(date)" | tee -a $LOG_FILE    #appends the output to the logfile

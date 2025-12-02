@@ -5,8 +5,8 @@ app_name=user
 
 Checks_sudo_user
 
-nodejs_install
 User_setup
+nodejs_install
 system_setup
 
 app_restart
