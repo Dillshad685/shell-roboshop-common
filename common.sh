@@ -13,6 +13,7 @@ LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"  #/var/log/shell-roboshop/mongodb.log
 SCRIPT_DIR=$PWD
 mkdir -p $LOGS_FOLDER
 MONGODB_HOST=mongodb.dillshad.space
+MYSQL_HOST=mysql.dillshad.space
 echo "$LOG_FILE"
 START_TIME=$(date +%s)
 echo "script execution start time: $(date)" | tee -a $LOG_FILE    #appends the output to the logfile
@@ -48,6 +49,15 @@ nodejs_install(){
     npm install &>>$LOG_FILE
     VALIDATE $? "installed dependencies"
 }
+
+java_install(){
+    dnf install maven -y &>>$LOG_FILE
+    VALIDATE $? "install java"
+    mvn clean package &>>$LOG_FILE
+    mv target/shipping-1.0.jar shipping.jar
+    VALIDATE $? "installed packages" 
+}
+
 User_setup(){
     id roboshop &>>$LOG_FILE 
     if [ $? -ne 0 ]; then
