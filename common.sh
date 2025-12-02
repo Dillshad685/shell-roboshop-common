@@ -10,7 +10,7 @@ echo "$0"
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1) #$0 refers to the file which is running currently in
 #the server which is mongodb.sh removes .sh and adds .log
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"  #/var/log/shell-roboshop/mongodb.log
-
+SCRIPT_DIR=$PWD
 mkdir -p $LOGS_FOLDER
 echo "$LOG_FILE"
 START_TIME=$(date +%s)
