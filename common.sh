@@ -58,6 +58,13 @@ java_install(){
     VALIDATE $? "installed packages" 
 }
 
+python_install(){
+    dnf install python3 gcc python3-devel -y &>>$LOG_FILE
+    VALIDATE $? "installed python"
+    pip3 install -r requirements.txt &>>$LOG_FILE
+    VALIDATE $? "installed packages"
+}
+
 User_setup(){
     id roboshop &>>$LOG_FILE 
     if [ $? -ne 0 ]; then
