@@ -2,7 +2,7 @@
 
 source ./common.sh
 
-Checks_sudo_user()
+Checks_sudo_user
 
 cp mongodb.repo /etc/yum.repos.d/mongodb.repo
 VALIDATE $? "Adding mongorepo"
