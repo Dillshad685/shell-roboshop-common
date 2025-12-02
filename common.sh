@@ -13,7 +13,8 @@ LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"  #/var/log/shell-roboshop/mongodb.log
 
 mkdir -p $LOGS_FOLDER
 echo "$LOG_FILE"
-echo "script execution start time: $(date)" | tee -a $LOG_FILE    #appends the output to the logfile
+START_TIME=$(date +%s)
+echo "script execution start time: $(START_TIME)" | tee -a $LOG_FILE    #appends the output to the logfile
 
 USERID=$(id -u)    
 
@@ -34,4 +35,10 @@ VALIDATE(){ #function receives input as args
   else
      echo -e "$2 .. $G SUCCESS $N" | tee -a $LOG_FILE
   fi
+}
+
+print_total_time(){
+    END_TIME=$(date +%s)
+    TOTAL_TIME=$(($END_TIME - $START_TIME))
+    echo -e "execution end time : $G $TOTAL_TIME seconds $N"
 }

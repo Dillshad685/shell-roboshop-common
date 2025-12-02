@@ -21,3 +21,5 @@ VALIDATE $? "allowing all ports" #using sed we can insert in the file
 
 systemctl restart mongod &>>$LOG_FILE
 VALIDATE $? "restarting mongoDB"
+
+print_total_time
