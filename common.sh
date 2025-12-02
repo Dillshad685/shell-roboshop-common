@@ -76,14 +76,14 @@ User_setup(){
 }
 
 system_setup(){
-    cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service
+    cp $SCRIPT_DIR/$app_name.service /etc/systemd/system/$app_name.service
     VALIDATE $? "copied to enable systemuer"
 
     systemctl daemon-reload &>>$LOG_FILE
-    VALIDATE $? "reloaded catalogue" 
+    VALIDATE $? "reloaded $app_name" 
 
-    systemctl enable catalogue  &>>$LOG_FILE
-    VALIDATE $? "enabled catalogue"
+    systemctl enable $app_name  &>>$LOG_FILE
+    VALIDATE $? "enabled $app_name"
     
 }
 
