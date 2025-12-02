@@ -4,7 +4,7 @@ source ./common.sh
 
 Checks_sudo_user()
 
-cp mongodb.repo /etc/yum.repos.d/mongodb.repo &>>$LOG_FILE
+cp mongodb.repo /etc/yum.repos.d/mongodb.repo 
 VALIDATE $? "Adding mongorepo"
 
 dnf install mongodb-org -y &>>$LOG_FILE
