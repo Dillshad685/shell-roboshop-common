@@ -37,6 +37,62 @@ VALIDATE(){ #function receives input as args
   fi
 }
 
+nodejs_install(){
+    dnf module disable nodejs -y &>>$LOG_FILE
+    VALIDATE $? "disable nodejs"
+    dnf module enable nodejs:20 -y &>>$LOG_FILE
+    VALIDATE $? "Enabling nodejs"
+    dnf install nodejs -y &>>$LOG_FILE
+    VALIDATE $? "install nodejs"
+    npm install &>>$LOG_FILE
+    VALIDATE $? "installed dependencies"
+}
+User_setup(){
+    id roboshop &>>$LOG_FILE 
+    if [ $? -ne 0 ]; then
+        useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOG_FILE
+        VALIDATE $? "system user created"
+    else
+        echo -e "user already exisiting .. $Y SKIPPING $N"
+    fi
+    mkdir -p /app &>>$LOG_FILE 
+    VALIDATE $? "app directory created"
+
+    curl -o /tmp/$app_name.zip https://roboshop-artifacts.s3.amazonaws.com/$app_name-v3.zip &>>$LOG_FILE
+    VALIDATE $? "copy data to temp"
+
+    rm -rf /app/* &>>$LOG_FILE 
+    VALIDATE $? "removing existing CODE" 
+
+    cd /app  &>>$LOG_FILE
+    VALIDATE $? "changed directory to app"
+
+    unzip /tmp/$app_name.zip &>>$LOG_FILE
+    VALIDATE $? "unzipped from temp directory to app"
+
+    cd /app  &>>$LOG_FILE
+    VALIDATE $? "changed directory to app"
+}
+
+system_setup(){
+    cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service
+    VALIDATE $? "copied to enable systemuer"
+
+    systemctl daemon-reload &>>$LOG_FILE
+    VALIDATE $? "reloaded catalogue" 
+
+    systemctl enable catalogue  &>>$LOG_FILE
+    VALIDATE $? "enabled catalogue"
+    
+}
+
+app_restart(){
+    systemctl restart $app_name &>>$LOG_FILE
+    VALIDATE $? "$app_name restarted"
+}
+
+
+
 print_total_time(){
     END_TIME=$(date +%s)
     TOTAL_TIME=$(($END_TIME - $START_TIME))
